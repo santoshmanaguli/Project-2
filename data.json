@@ -1,0 +1,13 @@
+{
+  "users": [
+      {
+          "firstname": "Santosh",
+          "lastname": "Managuli",
+          "email": "santosh@gmail.com",
+          "password": "santosh",
+          "roleatschool": "one",
+          "state": "MH",
+          "id": 1
+      }
+  ]
+}

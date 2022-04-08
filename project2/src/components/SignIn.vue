@@ -1,0 +1,107 @@
+<template>
+<section>
+    <div class="row" style="width:100%;">
+        <div id="img-div" class="col-md-5">
+            <img class="image" src="../assets/img.webp" alt="image" />
+        </div>
+        <div class="col-md-7">
+            <div class="justify-content-md-end d-md-flex p-3">
+                <span id="acc-span" class="me-md-2">Don't have an account yet?</span>
+                <button id="cre-acc" class="col-3 rounded" type="button" style="border-color: #026c7c;">Create Account</button>
+            </div><br>
+            <form id="div2">
+                <div>
+                    <h2 id="h2">
+                        Sign in to <span id="abc">ABC</span>
+                    </h2>
+                    <h6 id="h6">Welcome back :)</h6><br>
+                </div>
+                <hr id="hr"><br>
+                <label for="Email" class="form-label"><b>Email Address</b></label>
+                <input v-model="email" type="email" class="form-control" />
+                <br>
+                <label for="Password" class="form-label"><b>Password</b></label>
+                <input v-model="password" type="password" class="form-control" />
+                <br>
+                <div>
+                    <button @click="signUp" class="col-3 rounded" id="btn" type="button">Sign In</button>
+                </div>
+                <br />
+                <div>
+                    <a href="" style="text-decoration:none; color:black;">Forgot Password</a>
+                    <br />
+                    <br />
+                </div>
+                <table>
+                    <tr>
+                        <td style='width:10%'>
+                            <hr id="hr1" />
+                        </td>
+                        <td style="width:2%; text-align: center;">OR</td>
+                        <td style='width:10%'>
+                            <hr id="hr1" />
+                        </td>
+                    </tr>
+                </table>
+                <br />
+                <div>
+                    <button type="button" class="rounded d-grid col-3 mx-auto" id="googlebtn">Signup with Google</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</section>
+</template>
+
+<script>
+export default {
+    name: 'SignIn',
+}
+</script>
+
+<style>
+#hr1 {
+    border: 2px solid;
+    opacity: 1;
+}
+
+#abc {
+    color: #6a0136;
+}
+
+#hr {
+    width: 70px;
+    color: #23c9ff;
+    opacity: 1;
+    height: 10px;
+}
+
+#div2 {
+    padding: 7rem;
+}
+
+@media screen and (max-width:700px) {
+    #div2 {
+        padding: 3rem;
+    }
+
+    #cre-acc {
+        width: 40%;
+    }
+    #h2{
+      font-size: 200%;
+    }
+    #h6{
+      font-size: 120%;
+    }
+}
+
+@media screen and (max-width: 1000px) {
+  #div2 {
+    padding: 3rem;
+  }
+  #cre-acc {
+        width: 40%;
+    }
+}
+</style>
