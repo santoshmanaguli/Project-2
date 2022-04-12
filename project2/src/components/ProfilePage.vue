@@ -1,10 +1,11 @@
 <template>
-<nav class="navbar navbar-expand-sm|md|lg|-xl bg-dark">
-    <div class="container" style="margin-left:3rem;">
-        <a class="navbar-brand" href="#">ABC</a>
-    </div>
-    <div id="noti">
-        <ul class="navbar-nav">
+<nav class="navbar navbar-expand-sm navbar-dark bg-dark">
+    <a class="navbar-brand ms-4" href="#">ABC</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav ms-auto">
             <li class="nav-item">
                 <a class="nav-link" href="#">
                     <i class="bi bi-bell-fill" style="color:white; font-style:normal">
@@ -12,12 +13,8 @@
                     </i>
                 </a>
             </li>
-        </ul>
-    </div>
-    <div class="m-2 p-1 border-bottom" id="set">
-        <ul class="navbar-nav ms-auto">
             <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle" id="navbarDropdown" role="button" href="#">
+                <a class="nav-link dropdown-toggle border-bottom" id="navbarDropdown" role="button" href="#">
                     <i class="bi bi-gear-fill" style="color:white"></i>
                 </a>
             </li>
@@ -71,46 +68,35 @@ export default {
 </script>
 
 <style>
-#noti{
-    width:6%
-}
-#set{
-    display:inline;
-    width:3%
-}
 .border-bottom {
     border-bottom: 1px solid gold !important;
 }
 
-.navbar-brand {
-    color: gold;
-}
-
-.nav-link {
+.navbar-dark .navbar-brand {
     color: gold;
 }
 
 @media screen and (max-width: 1000px) {
-    .container{
+    .container {
         width: 50%;
     }
+
     #conn {
         width: 40%;
     }
 }
 
 @media screen and (max-width: 700px) {
-    .col-7{
+    .col-7 {
         width: 78%;
     }
-    #upd {
-        width: 100%;
-    }
 
+    #upd,
     #conn {
         width: 100%;
     }
-    #personal{
+
+    #personal {
         font-size: 167%;
     }
 }
