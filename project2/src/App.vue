@@ -1,16 +1,12 @@
 <template>
-<profile-page />
+<router-view></router-view>
 </template>
 
 <script>
-import ProfilePage from './components/ProfilePage.vue'
-
 export default {
-  name: 'App',
-  components:{
-    ProfilePage
-  }
+  name: 'App'
 }
 </script>
 <style>
+
 </style>
