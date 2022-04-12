@@ -1,14 +1,14 @@
 <template>
-<SignIn />
+<profile-page />
 </template>
 
 <script>
-import SignIn from './components/SignIn.vue'
+import ProfilePage from './components/ProfilePage.vue'
 
 export default {
   name: 'App',
   components:{
-    SignIn
+    ProfilePage
   }
 }
 </script>
