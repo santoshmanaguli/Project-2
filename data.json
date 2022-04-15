@@ -1,13 +1,67 @@
 {
   "users": [
-      {
-          "firstname": "Santosh",
-          "lastname": "Managuli",
-          "email": "santosh@gmail.com",
-          "password": "santosh",
-          "roleatschool": "one",
-          "state": "MH",
-          "id": 1
-      }
+    {
+      "firstname": "Santosh",
+      "lastname": "Managuli",
+      "email": "santosh@gmail.com",
+      "password": "santosh",
+      "roleatschool": "one",
+      "state": "MH",
+      "id": 1
+    },
+    {
+      "firstname": "tony",
+      "lastname": "stark",
+      "email": "tony@gmail.com",
+      "password": "tony",
+      "roleatschool": "two",
+      "state": "AP",
+      "id": 2
+    },
+    {
+      "firstname": "bruce",
+      "lastname": "c",
+      "email": "bruce@gmail.com",
+      "password": "bruce",
+      "roleatschool": "three",
+      "state": "DH",
+      "id": 3
+    },
+    {
+      "firstname": "sam",
+      "lastname": "c",
+      "email": "sam@gmail.com",
+      "password": "sam",
+      "roleatschool": "one",
+      "state": "MH",
+      "id": 4
+    },
+    {
+      "firstname": "test",
+      "lastname": "t",
+      "email": "test@gmail.com",
+      "password": "test",
+      "roleatschool": "two",
+      "state": "AP",
+      "id": 5
+    },
+    {
+      "firstname": "bruce",
+      "lastname": "b",
+      "email": "bruce@gmail.com",
+      "password": "brucegmail",
+      "roleatschool": "one",
+      "state": "MH",
+      "id": 6
+    },
+    {
+      "firstname": "Santosh",
+      "lastname": "Managuli",
+      "email": "santosh@gmail.com",
+      "password": "santoshgmail",
+      "roleatschool": "one",
+      "state": "MH",
+      "id": 7
+    }
   ]
 }

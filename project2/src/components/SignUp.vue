@@ -8,7 +8,7 @@
             <form>
                 <div class="justify-content-md-end d-md-flex">
                     <span id="acc-span" class="me-md-2">Already have an account?</span>
-                    <button @click="$router.push('signin')" id="signin-btn" class="col-2 rounded" type="button" style="border-color: #026c7c;">SignIn</button>
+                    <button @click="$router.push('/')" id="signin-btn" class="col-2 rounded" type="button" style="border-color: #026c7c;">SignIn</button>
                 </div><br>
                 <h2>
                     Stay organized and energized with your new teacher workflow
@@ -17,32 +17,37 @@
                 <h6>Enter your details below to get your FREE account today.</h6><br>
                 <hr id="hr">
                 <div id="req" class="justify-content-md-end d-md-flex">
-                    <span id="str-red">*</span><span><b>Required</b></span>
+                    <span id="str-red">*</span><span><b></b></span>
                 </div>
                 <label for="FirstName" class="form-label"><b>First Name</b></label><span id="str-red">*</span>
                 <input v-model="firstname" type="text" class="form-control" required />
+                <p v-if="!firstnameisValid" id="str-red">First Name cannot be empty</p>
                 <label for="LastName" class="form-label"><b>Last Name</b></label><span id="str-red">*</span>
                 <input v-model="lastname" type="text" class="form-control" required />
+                <p v-if="!lastnameisValid" id="str-red">Last Name cannot be empty</p>
                 <label for="Email" class="form-label"><b>Email Address</b></label><span id="str-red">*</span>
                 <input v-model="email" type="email" class="form-control" required />
+                <p v-if="!emailisValid" id="str-red">Only valid email</p>
                 <label for="Password" class="form-label"><b>Password</b></label><span id="str-red">*</span>
-                <input v-model="password" type="password" class="form-control" required />
+                <input v-model="password" type="password" class="form-control" minlength="8" required />
+                <p v-if="!passwordisValid" id="str-red">Must contain at least 8 characters</p>
                 <br>
                 <label for="school"><b>Role at Your School</b></label><span id="str-red">*</span>
-                <select v-model="roleatschool" class="form-select" aria-label="Default select example" required name="school" id="school">
+                <select v-model="roleatschool" class="form-select" aria-label="Default select example" name="school" id="school" required>
                     <option value="" disabled selected>Select option</option>
                     <option value="one">One</option>
                     <option value="two">Two</option>
                     <option value="three">Three</option>
                 </select>
+                <p v-if="!roleatschoolisValid" id="str-red">Can't be empty</p>
                 <br>
                 <label for="state"><b>State</b></label><span id="str-red">*</span>
-                <select v-model="state" class="form-select" aria-label="Default select example" name="state" required id="state">
-                    <option selected></option>
+                <select v-model="state" class="form-select" aria-label="Default select example" name="state" id="state" required>
                     <option value="MH">MH</option>
                     <option value="AP">AP</option>
                     <option value="DH">DH</option>
-                </select><br>
+                </select>
+                <p v-if="!stateisValid" id="str-red">Can't be empty</p><br>
                 <input class="me-2" type="checkbox" /><span>I'd like to try the new <b>Progress Monitoring</b> tracker in
                     ABC</span>
                 <br />
@@ -85,12 +90,35 @@ export default {
     name: "SignUp",
     data() {
         return {
-            firstname: '',
-            lastname: '',
-            email: '',
-            password: '',
-            roleatschool: '',
-            state: ''
+            firstname: "",
+            lastname: "",
+            email: "",
+            password: "",
+            roleatschool: "",
+            state: "",
+        }
+    },
+    computed: {
+        firstnameIsValid() {
+            return !!this.firstname
+        },
+        lastnameIsValid() {
+            return !!this.lastname
+        },
+        roleatschoolIsValid() {
+            return !!this.roleatschool
+        },
+        stateIsValid() {
+            return !!this.state
+        },
+        passwordIsValid() {
+            return this.password !== "" && this.password.length > 8
+        },
+        emailIsValid() {
+            return this.email !== "" && this.email.includes('@') && this.email.includes('.com')
+        },
+        formisValid() {
+            return this.firstnameIsValid && this.lastnameIsValid && this.emailIsValid && this.passwordIsValid && this.roleatschoolIsValid && this.stateIsValid
         }
     },
     methods: {
@@ -112,46 +140,25 @@ export default {
                         name: 'ProfilePage'
                     })
                 }
-            } else {
-                alert("Please enter all details correctly");
             }
         }
     },
-    computed: {
-        firstnameIsValid() {
-            return this.firstname !== ""
-        },
-        lastnameIsValid() {
-            return this.lastname !== ""
-        },
-        roleatschoolIsValid() {
-            return this.roleatschool !== ""
-        },
-        stateIsValid() {
-            return this.state !== ""
-        },
-        passwordIsValid() {
-            return this.password !== "" && this.password.length > 8
-        },
-        emailIsValid() {
-            return this.email !== ""
-        },
-        formisValid() {
-            return this.firstnameIsValid && this.lastnameIsValid && this.emailIsValid && this.passwordIsValid && this.roleatschoolIsValid && this.stateIsValid
-        }
-    },
-    mounted() {
-        let user = localStorage.getItem('user');
-        if (user) {
-            this.$router.push({
-                name: 'ProfilePage'
-            })
+        mounted() {
+            let user = localStorage.getItem('user');
+            if (user) {
+                this.$router.push({
+                    name: 'ProfilePage'
+                })
+            }
         }
     }
-}
 </script>
 
 <style>
+p {
+    font-size: 80%;
+}
+
 .image {
     width: 100%;
     height: 100%;

@@ -7,7 +7,7 @@
         <div class="col-md-7">
             <div class="justify-content-md-end d-md-flex p-3">
                 <span id="acc-span" class="me-md-2">Don't have an account yet?</span>
-                <button @click="$router.push('/')" id="cre-acc" class="col-3 rounded" type="button" style="border-color: #026c7c;">Create Account</button>
+                <button @click="$router.push('signup')" id="cre-acc" class="col-3 rounded" type="button" style="border-color: #026c7c;">Create Account</button>
             </div><br>
             <form id="div2">
                 <div>

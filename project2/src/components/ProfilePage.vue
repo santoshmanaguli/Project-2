@@ -64,7 +64,7 @@
             </select>
         </div><br>
         <div class="d-grid gap-4 d-md-flex justify-content-md-end">
-            <button class="btn btn-primary me-md-2 col-4" type="button" style="background:#2d9cdb" id="upd" @click="update()">Update Profile</button>
+            <button class="btn btn-primary me-md-2 col-4" type="button" style="background:#2d9cdb" id="upd" @click="upd()">Update Profile</button>
             <button class="btn btn-primary col-3" type="button" style="background:#2d9cdb" id="conn">Connect to Google</button>
         </div>
     </form>
@@ -78,7 +78,6 @@ export default {
     name: 'ProfilePage',
     data() {
         return {
-            profile: [],
             User: {
                 id: '',
                 firstname: '',
@@ -91,7 +90,7 @@ export default {
         }
     },
     methods: {
-        async update() {
+        async upd() {
             console.log(this.User.firstname, this.User.lastname, this.User.id);
             var uid = this.User.id;
             console.log(uid);
@@ -116,7 +115,7 @@ export default {
         let user = localStorage.getItem('user');
         if (!user) {
             this.$router.push({
-                name: 'SignUp'
+                path: '/'
             })
         }
         var obj = JSON.parse(user)
