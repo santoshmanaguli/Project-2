@@ -8,7 +8,7 @@
             <form>
                 <div class="justify-content-md-end d-md-flex">
                     <span id="acc-span" class="me-md-2">Already have an account?</span>
-                    <button id="signin-btn" class="col-2 rounded" type="button" style="border-color: #026c7c;">SignIn</button>
+                    <button @click="$router.push('signin')" id="signin-btn" class="col-2 rounded" type="button" style="border-color: #026c7c;">SignIn</button>
                 </div><br>
                 <h2>
                     Stay organized and energized with your new teacher workflow
@@ -20,24 +20,24 @@
                     <span id="str-red">*</span><span><b>Required</b></span>
                 </div>
                 <label for="FirstName" class="form-label"><b>First Name</b></label><span id="str-red">*</span>
-                <input v-model="firstname" type="text" class="form-control" />
+                <input v-model="firstname" type="text" class="form-control" required />
                 <label for="LastName" class="form-label"><b>Last Name</b></label><span id="str-red">*</span>
-                <input v-model="lastname" type="text" class="form-control" />
+                <input v-model="lastname" type="text" class="form-control" required />
                 <label for="Email" class="form-label"><b>Email Address</b></label><span id="str-red">*</span>
-                <input v-model="email" type="email" class="form-control" />
+                <input v-model="email" type="email" class="form-control" required />
                 <label for="Password" class="form-label"><b>Password</b></label><span id="str-red">*</span>
-                <input v-model="password" type="password" class="form-control" />
+                <input v-model="password" type="password" class="form-control" required />
                 <br>
                 <label for="school"><b>Role at Your School</b></label><span id="str-red">*</span>
-                <select v-model="roleatschool" class="form-select" aria-label="Default select example" name="school" id="school">
-                    <option selected>Select option</option>
+                <select v-model="roleatschool" class="form-select" aria-label="Default select example" required name="school" id="school">
+                    <option value="" disabled selected>Select option</option>
                     <option value="one">One</option>
                     <option value="two">Two</option>
                     <option value="three">Three</option>
                 </select>
                 <br>
                 <label for="state"><b>State</b></label><span id="str-red">*</span>
-                <select v-model="state" class="form-select" aria-label="Default select example" name="state" id="state">
+                <select v-model="state" class="form-select" aria-label="Default select example" name="state" required id="state">
                     <option selected></option>
                     <option value="MH">MH</option>
                     <option value="AP">AP</option>
@@ -95,28 +95,68 @@ export default {
     },
     methods: {
         async signUp() {
-            let result = await axios.post("http://localhost:3000/users", {
-                firstname: this.firstname,
-                lastname: this.lastname,
-                email: this.email,
-                password: this.password,
-                roleatschool: this.roleatschool,
-                state: this.state
-            });
-            console.log(result);
-            if (result.status == 201) {
-                alert("sent");
+            if (this.formisValid) {
+                let result = await axios.post("http://localhost:3000/users", {
+                    firstname: this.firstname,
+                    lastname: this.lastname,
+                    email: this.email,
+                    password: this.password,
+                    roleatschool: this.roleatschool,
+                    state: this.state
+                });
+                console.log(result);
+                if (result.status == 201) {
+                    alert("user registered");
+                    localStorage.setItem("user", JSON.stringify(result.data))
+                    this.$router.push({
+                        name: 'ProfilePage'
+                    })
+                }
+            } else {
+                alert("Please enter all details correctly");
             }
+        }
+    },
+    computed: {
+        firstnameIsValid() {
+            return this.firstname !== ""
+        },
+        lastnameIsValid() {
+            return this.lastname !== ""
+        },
+        roleatschoolIsValid() {
+            return this.roleatschool !== ""
+        },
+        stateIsValid() {
+            return this.state !== ""
+        },
+        passwordIsValid() {
+            return this.password !== "" && this.password.length > 8
+        },
+        emailIsValid() {
+            return this.email !== ""
+        },
+        formisValid() {
+            return this.firstnameIsValid && this.lastnameIsValid && this.emailIsValid && this.passwordIsValid && this.roleatschoolIsValid && this.stateIsValid
+        }
+    },
+    mounted() {
+        let user = localStorage.getItem('user');
+        if (user) {
+            this.$router.push({
+                name: 'ProfilePage'
+            })
         }
     }
 }
 </script>
 
 <style>
-.image{
+.image {
     width: 100%;
     height: 100%;
 }
+
 #btn {
     background: #026c7c;
     color: #fff;

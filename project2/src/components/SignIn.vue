@@ -7,7 +7,7 @@
         <div class="col-md-7">
             <div class="justify-content-md-end d-md-flex p-3">
                 <span id="acc-span" class="me-md-2">Don't have an account yet?</span>
-                <button id="cre-acc" class="col-3 rounded" type="button" style="border-color: #026c7c;">Create Account</button>
+                <button @click="$router.push('/')" id="cre-acc" class="col-3 rounded" type="button" style="border-color: #026c7c;">Create Account</button>
             </div><br>
             <form id="div2">
                 <div>
@@ -24,7 +24,7 @@
                 <input v-model="password" type="password" class="form-control" />
                 <br>
                 <div>
-                    <button @click="signUp" class="col-3 rounded" id="btn" type="button">Sign In</button>
+                    <button @click="logIn" class="col-3 rounded" id="btn" type="button">Sign In</button>
                 </div>
                 <br />
                 <div>
@@ -54,8 +54,38 @@
 </template>
 
 <script>
+import axios from 'axios'
+
 export default {
     name: 'SignIn',
+    data() {
+        return {
+            email: '',
+            password: '',
+        }
+    },
+    methods: {
+        async logIn() {
+            let result = await axios.get(`http://localhost:3000/users?email=${this.email}&password=${this.password}`)
+            
+            if (result.status == 200 && result.data.length > 0) {
+                localStorage.setItem('user', JSON.stringify(result.data[0]))
+                this.$router.push({
+                    path: '/profile'
+                })
+            } else {
+                alert("wrong")
+            }
+        }
+    },
+    mounted() {
+        let user = localStorage.getItem('user');
+        if (user) {
+            this.$router.push({
+                name: 'ProfilePage'
+            })
+        }
+    }
 }
 </script>
 
@@ -88,19 +118,22 @@ export default {
     #cre-acc {
         width: 40%;
     }
-    #h2{
-      font-size: 200%;
+
+    #h2 {
+        font-size: 200%;
     }
-    #h6{
-      font-size: 120%;
+
+    #h6 {
+        font-size: 120%;
     }
 }
 
 @media screen and (max-width: 1000px) {
-  #div2 {
-    padding: 3rem;
-  }
-  #cre-acc {
+    #div2 {
+        padding: 3rem;
+    }
+
+    #cre-acc {
         width: 40%;
     }
 }

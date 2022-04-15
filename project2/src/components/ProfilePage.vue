@@ -35,26 +35,36 @@
         </div>
         <div>
             <label for="firstname">First Name</label>
-            <input type="text" class="form-control" name="firstname" id="firstname">
+            <input type="text" class="form-control" name="firstname" id="firstname" v-model="User.firstname">
         </div>
         <div>
             <label for="lastname">Last Name</label>
-            <input type="text" class="form-control" name="lastname" id="lastname">
+            <input type="text" class="form-control" name="lastname" id="lastname" v-model="User.lastname">
         </div>
         <div>
             <label for="email">Email</label>
-            <input type="email" name="email" id="email" class="form-control" disabled>
+            <input type="email" name="email" id="email" class="form-control" disabled v-model="User.email">
         </div>
         <div>
             <label for="school">School</label>
-            <select class="form-select" aria-label="Default select example" name="school" id="school" disabled></select>
+            <select class="form-select" aria-label="Default select example" name="school" id="school" disabled v-model="User.roleatschool">
+                <option value="" disabled>Select option</option>
+                <option value="one">One</option>
+                <option value="two">Two</option>
+                <option value="three">Three</option>
+            </select>
         </div>
         <div>
             <label for="state">State</label>
-            <select class="form-select" aria-label="Default select example" name="state" id="state" disabled></select>
+            <select class="form-select" aria-label="Default select example" name="state" id="state" disabled v-model="User.state">
+                <option></option>
+                <option value="MH">MH</option>
+                <option value="AP">AP</option>
+                <option value="DH">DH</option>
+            </select>
         </div><br>
         <div class="d-grid gap-4 d-md-flex justify-content-md-end">
-            <button class="btn btn-primary me-md-2 col-4" type="button" style="background:#2d9cdb" id="upd">Update Profile</button>
+            <button class="btn btn-primary me-md-2 col-4" type="button" style="background:#2d9cdb" id="upd" @click="update()">Update Profile</button>
             <button class="btn btn-primary col-3" type="button" style="background:#2d9cdb" id="conn">Connect to Google</button>
         </div>
     </form>
@@ -62,8 +72,56 @@
 </template>
 
 <script>
+import axios from 'axios'
+
 export default {
     name: 'ProfilePage',
+    data() {
+        return {
+            profile: [],
+            User: {
+                id: '',
+                firstname: '',
+                lastname: '',
+                email: '',
+                password:'',
+                roleatschool: '',
+                state: '',
+            }
+        }
+    },
+    methods: {
+        async update() {
+            console.log(this.User.firstname, this.User.lastname, this.User.id);
+            var uid = this.User.id;
+            console.log(uid);
+            const result = await axios.put("http://localhost:3000/users/" + this.User.id, {
+                firstname: this.User.firstname,
+                lastname: this.User.lastname,
+                email: this.User.email,
+                password:this.User.password,
+                roleatschool:this.User.roleatschool,
+                state:this.User.roleatschool,
+            });
+            console.log(result);
+
+            if (result.status == 200) {
+                this.$router.push({
+                    name: 'ProfilePage'
+                });
+            }
+        }
+    },
+    mounted() {
+        let user = localStorage.getItem('user');
+        if (!user) {
+            this.$router.push({
+                name: 'SignUp'
+            })
+        }
+        var obj = JSON.parse(user)
+        this.User = obj;
+    }
 }
 </script>
 
