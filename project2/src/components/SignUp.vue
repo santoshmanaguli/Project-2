@@ -19,18 +19,20 @@
                 <div id="req" class="justify-content-md-end d-md-flex">
                     <span id="str-red">*</span><span><b></b></span>
                 </div>
-                <label for="FirstName" class="form-label"><b>First Name</b></label><span id="str-red">*</span>
-                <input v-model="firstname" type="text" class="form-control" required />
-                <p v-if="!firstnameisValid" id="str-red">First Name cannot be empty</p>
+                <div>
+                    <label for="FirstName" class="form-label"><b>First Name</b></label><span id="str-red">*</span>
+                    <input v-model="firstname" type="text" class="form-control" required />
+                    <div v-if="!firstnameIsValid"><p id="str-red">First name cannot be empty</p></div>
+                </div>
                 <label for="LastName" class="form-label"><b>Last Name</b></label><span id="str-red">*</span>
                 <input v-model="lastname" type="text" class="form-control" required />
-                <p v-if="!lastnameisValid" id="str-red">Last Name cannot be empty</p>
+                <p v-if="!lastnameIsValid" id="str-red">Last Name cannot be empty</p>
                 <label for="Email" class="form-label"><b>Email Address</b></label><span id="str-red">*</span>
                 <input v-model="email" type="email" class="form-control" required />
-                <p v-if="!emailisValid" id="str-red">Only valid email</p>
+                <p v-if="!emailIsValid" id="str-red">Enter only valid email</p>
                 <label for="Password" class="form-label"><b>Password</b></label><span id="str-red">*</span>
                 <input v-model="password" type="password" class="form-control" minlength="8" required />
-                <p v-if="!passwordisValid" id="str-red">Must contain at least 8 characters</p>
+                <p v-if="!passwordIsValid" id="str-red">Must contain at least 8 characters</p>
                 <br>
                 <label for="school"><b>Role at Your School</b></label><span id="str-red">*</span>
                 <select v-model="roleatschool" class="form-select" aria-label="Default select example" name="school" id="school" required>
@@ -39,7 +41,7 @@
                     <option value="two">Two</option>
                     <option value="three">Three</option>
                 </select>
-                <p v-if="!roleatschoolisValid" id="str-red">Can't be empty</p>
+                <p v-if="!roleatschoolIsValid" id="str-red">Can't be empty</p>
                 <br>
                 <label for="state"><b>State</b></label><span id="str-red">*</span>
                 <select v-model="state" class="form-select" aria-label="Default select example" name="state" id="state" required>
@@ -47,7 +49,7 @@
                     <option value="AP">AP</option>
                     <option value="DH">DH</option>
                 </select>
-                <p v-if="!stateisValid" id="str-red">Can't be empty</p><br>
+                <p v-if="!stateIsValid" id="str-red">Can't be empty</p><br>
                 <input class="me-2" type="checkbox" /><span>I'd like to try the new <b>Progress Monitoring</b> tracker in
                     ABC</span>
                 <br />
@@ -143,15 +145,15 @@ export default {
             }
         }
     },
-        mounted() {
-            let user = localStorage.getItem('user');
-            if (user) {
-                this.$router.push({
-                    name: 'ProfilePage'
-                })
-            }
+    mounted() {
+        let user = localStorage.getItem('user');
+        if (user) {
+            this.$router.push({
+                name: 'ProfilePage'
+            })
         }
     }
+}
 </script>
 
 <style>
