@@ -2,6 +2,8 @@ import { createRouter, createWebHistory } from 'vue-router';
 import SignUp from './components/SignUp.vue';
 import SignIn from './components/SignIn.vue';
 import ProfilePage from './components/ProfilePage.vue'
+import ForgotPass from './components/ForgotPass.vue'
+import ChangePass from './components/ChangePass.vue'
 
 const routes = [
     {
@@ -18,6 +20,16 @@ const routes = [
         name: 'ProfilePage',
         component: ProfilePage,
         path: '/profile'
+    },
+    {
+        name:'ForgotPass',
+        component: ForgotPass,
+        path:'/forgotpass'
+    },
+    {
+        name:'ChangePass',
+        component: ChangePass,
+        path:'/changepass'
     }
 ];
 

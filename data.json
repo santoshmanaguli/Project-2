@@ -51,7 +51,7 @@
       "email": "bruce@gmail.com",
       "password": "brucegmail",
       "roleatschool": "one",
-      "state": "MH",
+      "state": "DH",
       "id": 6
     },
     {
@@ -62,6 +62,33 @@
       "roleatschool": "one",
       "state": "MH",
       "id": 7
+    },
+    {
+      "firstname": "ram",
+      "lastname": "r",
+      "email": "ram@gmail.com",
+      "password": "ramgmaill",
+      "roleatschool": "three",
+      "state": "AP",
+      "id": 8
+    },
+    {
+      "firstname": "Santosh",
+      "lastname": "Managuli",
+      "email": "santosh@gmail.com",
+      "password": "santoshgmail",
+      "roleatschool": "one",
+      "state": "DH",
+      "id": 9
+    },
+    {
+      "firstname": "sham",
+      "lastname": "m",
+      "email": "sham@gmail.com",
+      "password": "shamgmail",
+      "roleatschool": "one",
+      "state": "MH",
+      "id": 10
     }
   ]
 }

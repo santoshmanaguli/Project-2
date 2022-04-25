@@ -14,11 +14,15 @@
                 </a>
             </li>
             <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle border-bottom" id="navbarDropdown" role="button" href="#">
+                <a class="nav-link dropdown-toggle border-bottom" id="navbarDropdown" role="button" href="#" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     <i class="bi bi-gear-fill" style="color:white"></i>
                 </a>
-            </li>
-        </ul>
+                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+            <li><a class="dropdown-item" href="#" @click="$router.push('ChangePass')">Change Password</a></li>
+            <li><a class="dropdown-item" href="#" @click="logout()">Logout</a></li>
+    </div>
+    </li>
+    </ul>
     </div>
 </nav>
 <br>
@@ -36,10 +40,12 @@
         <div>
             <label for="firstname">First Name</label>
             <input type="text" class="form-control" name="firstname" id="firstname" v-model="User.firstname">
+            <p v-if="!firstnameIsValid" id="str-red">First name cannot be empty</p>
         </div>
         <div>
             <label for="lastname">Last Name</label>
             <input type="text" class="form-control" name="lastname" id="lastname" v-model="User.lastname">
+            <p v-if="!lastnameIsValid" id="str-red">Last name cannot be empty</p>
         </div>
         <div>
             <label for="email">Email</label>
@@ -64,7 +70,7 @@
             </select>
         </div><br>
         <div class="d-grid gap-4 d-md-flex justify-content-md-end">
-            <button class="btn btn-primary me-md-2 col-4" type="button" style="background:#2d9cdb" id="upd" @click="upd()">Update Profile</button>
+            <button class="btn btn-primary me-md-2 col-3" type="button" style="background:#2d9cdb" id="upd" @click="upd()">Update Profile</button>
             <button class="btn btn-primary col-3" type="button" style="background:#2d9cdb" id="conn">Connect to Google</button>
         </div>
     </form>
@@ -83,10 +89,21 @@ export default {
                 firstname: '',
                 lastname: '',
                 email: '',
-                password:'',
+                password: '',
                 roleatschool: '',
                 state: '',
             }
+        }
+    },
+    computed:{
+        firstnameIsValid() {
+            return !!this.User.firstname
+        },
+        lastnameIsValid() {
+            return !!this.User.lastname
+        },
+        formisValid() {
+            return this.firstnameIsValid && this.lastnameIsValid
         }
     },
     methods: {
@@ -94,13 +111,14 @@ export default {
             console.log(this.User.firstname, this.User.lastname, this.User.id);
             var uid = this.User.id;
             console.log(uid);
+            if (this.formisValid) {
             const result = await axios.put("http://localhost:3000/users/" + this.User.id, {
                 firstname: this.User.firstname,
                 lastname: this.User.lastname,
                 email: this.User.email,
-                password:this.User.password,
-                roleatschool:this.User.roleatschool,
-                state:this.User.roleatschool,
+                password: this.User.password,
+                roleatschool: this.User.roleatschool,
+                state: this.User.state,
             });
             console.log(result);
 
@@ -108,7 +126,15 @@ export default {
                 this.$router.push({
                     name: 'ProfilePage'
                 });
+                alert("Details updated")
             }
+            }
+        },
+        logout(){
+            localStorage.clear();
+            this.$router.push({
+                path:'/'
+            })
         }
     },
     mounted() {
@@ -125,6 +151,15 @@ export default {
 </script>
 
 <style>
+.navbar-nav .dropdown-menu {
+    float: none;
+}
+
+.dropdown-menu.show {
+    left: auto;
+    right: 0;
+}
+
 .border-bottom {
     border-bottom: 1px solid gold !important;
 }
@@ -134,10 +169,6 @@ export default {
 }
 
 @media screen and (max-width: 1000px) {
-    .container {
-        width: 50%;
-    }
-
     #conn {
         width: 40%;
     }

@@ -28,7 +28,7 @@
                 </div>
                 <br />
                 <div>
-                    <a href="" style="text-decoration:none; color:black;">Forgot Password</a>
+                    <a href="" style="text-decoration:none; color:black;" @click="$router.push('ForgotPass')">Forgot Password</a>
                     <br />
                     <br />
                 </div>
@@ -74,7 +74,7 @@ export default {
                     path: '/profile'
                 })
             } else {
-                alert("wrong")
+                alert("Invalid Details")
             }
         }
     },
