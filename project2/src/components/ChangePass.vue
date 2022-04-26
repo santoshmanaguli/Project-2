@@ -2,8 +2,8 @@
 <div class="container">
     <div class="row">
         <div class="col-md-12">
-            <div class="col-md-8 offset-md-2">
-                <h3>Change your Password.</h3>
+            <div class="col-md-8 offset-md-2" id="">
+                <h3 id="h3cp">Change your Password.</h3>
                 <br>
                 <form>
                     <div class="form-group">
@@ -18,7 +18,7 @@
                         <p v-if="!cpassisValid" id="str-red">Must contain atleast 8 characters and should match password</p>
                     </div>
                     <br>
-                    <button class="btn col-md-3 offset-md-4 resetbtn" @click="changePass()" type="button">Set Password</button>
+                    <button class="btn col-md-3 offset-md-4 resetbtn" @click="changePass()" type="button" id="btnsp">Set Password</button>
                 </form>
             </div>
         </div>
@@ -34,7 +34,7 @@ export default {
     data() {
         return {
             Passwd: {
-                id:'',
+                id: '',
                 firstname: '',
                 lastname: '',
                 email: '',
@@ -59,7 +59,7 @@ export default {
     methods: {
         async changePass() {
             if (this.formisValid) {
-                console.log(this.Passwd.pass, this.Passwd.cpassword, this.Passwd.id );
+                console.log(this.Passwd.pass, this.Passwd.cpassword, this.Passwd.id);
                 const pass = await axios.put("http://localhost:3000/users/" + this.Passwd.id, {
                     firstname: this.Passwd.firstname,
                     lastname: this.Passwd.lastname,
@@ -73,7 +73,7 @@ export default {
             }
         }
     },
-    mounted(){
+    mounted() {
         let user = localStorage.getItem('user');
         var id = JSON.parse(user)
         this.Passwd = id;
@@ -82,5 +82,27 @@ export default {
 </script>
 
 <style>
+.container {
+    margin-top: 10%;
+}
 
+@media screen and (max-width: 1000px) {
+    #btnsp {
+        width: 30%;
+    }
+}
+
+@media screen and (max-width: 700px) {
+    #h3cp {
+        font-size: 190%;
+    }
+
+    .container {
+        padding: 8%;
+    }
+
+    #btnsp {
+        width: 100%;
+    }
+}
 </style>

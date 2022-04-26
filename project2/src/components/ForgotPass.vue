@@ -40,8 +40,8 @@ export default {
     position: relative;
     border: 5px solid gold;
     opacity: 1;
-    margin-right: 45% !important;
-    margin-left: 45% !important;
+    margin-right: 41% !important;
+    margin-left: 41% !important;
 }
 
 .resetbtn {
@@ -58,5 +58,10 @@ export default {
     font-size: 16px;
     line-height: 22px;
     text-decoration: none;
+}
+@media screen and (max-width: 1000px) {
+    .resetbtn{
+        width: 50%;
+    }
 }
 </style>

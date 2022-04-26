@@ -8,48 +8,50 @@
         <ul class="navbar-nav ms-auto">
             <li class="nav-item">
                 <a class="nav-link" href="#">
-                    <i class="bi bi-bell-fill" style="color:white; font-style:normal">
-                        <span class="badge rounded-circle" style="background:#2d9cdb">43</span>
+                    <i class="bi bi-bell-fill" style="color: white; font-style: normal">
+                        <span class="badge rounded-circle" style="background: #2d9cdb">43</span>
                     </i>
                 </a>
             </li>
             <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle border-bottom" id="navbarDropdown" role="button" href="#" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    <i class="bi bi-gear-fill" style="color:white"></i>
+                    <i class="bi bi-gear-fill" style="color: white"></i>
                 </a>
                 <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-            <li><a class="dropdown-item" href="#" @click="$router.push('ChangePass')">Change Password</a></li>
-            <li><a class="dropdown-item" href="#" @click="logout()">Logout</a></li>
+            <li>
+                <a class="dropdown-item" href="#" @click="$router.push('ChangePass')">Change Password</a>
+            </li>
+            <li>
+                <a class="dropdown-item" href="#" @click="logout()">Logout</a>
+            </li>
     </div>
     </li>
     </ul>
     </div>
 </nav>
-<br>
-<br>
+<br />
+<br />
 <div>
     <form class="row g-2 align-items-center d-grid p-1 col-7 mx-auto">
         <div>
             <h2 class="text-center" id="personal">My Personal Information.</h2>
         </div>
         <div>
-            <h5 class="text-center">
-                Update details below.
-            </h5>
+            <h5 class="text-center">Update details below.</h5>
         </div>
         <div>
             <label for="firstname">First Name</label>
-            <input type="text" class="form-control" name="firstname" id="firstname" v-model="User.firstname">
+            <input type="text" class="form-control" name="firstname" id="firstname" v-model="User.firstname" />
             <p v-if="!firstnameIsValid" id="str-red">First name cannot be empty</p>
         </div>
         <div>
             <label for="lastname">Last Name</label>
-            <input type="text" class="form-control" name="lastname" id="lastname" v-model="User.lastname">
+            <input type="text" class="form-control" name="lastname" id="lastname" v-model="User.lastname" />
             <p v-if="!lastnameIsValid" id="str-red">Last name cannot be empty</p>
         </div>
         <div>
             <label for="email">Email</label>
-            <input type="email" name="email" id="email" class="form-control" disabled v-model="User.email">
+            <input type="email" name="email" id="email" class="form-control" disabled v-model="User.email" />
         </div>
         <div>
             <label for="school">School</label>
@@ -68,43 +70,48 @@
                 <option value="AP">AP</option>
                 <option value="DH">DH</option>
             </select>
-        </div><br>
+        </div>
+        <br />
         <div class="d-grid gap-4 d-md-flex justify-content-md-end">
-            <button class="btn btn-primary me-md-2 col-3" type="button" style="background:#2d9cdb" id="upd" @click="upd()">Update Profile</button>
-            <button class="btn btn-primary col-3" type="button" style="background:#2d9cdb" id="conn">Connect to Google</button>
+            <button class="btn btn-primary me-md-2 col-3 upd" type="button" style="background: #2d9cdb" @click="upd()">
+                Update Profile
+            </button>
+            <button class="btn btn-primary col-3 conn" type="button" style="background: #2d9cdb">
+                Connect to Google
+            </button>
         </div>
     </form>
 </div>
 </template>
 
 <script>
-import axios from 'axios'
+import axios from "axios";
 
 export default {
-    name: 'ProfilePage',
+    name: "ProfilePage",
     data() {
         return {
             User: {
-                id: '',
-                firstname: '',
-                lastname: '',
-                email: '',
-                password: '',
-                roleatschool: '',
-                state: '',
-            }
-        }
+                id: "",
+                firstname: "",
+                lastname: "",
+                email: "",
+                password: "",
+                roleatschool: "",
+                state: "",
+            },
+        };
     },
-    computed:{
+    computed: {
         firstnameIsValid() {
-            return !!this.User.firstname
+            return !!this.User.firstname;
         },
         lastnameIsValid() {
-            return !!this.User.lastname
+            return !!this.User.lastname;
         },
         formisValid() {
-            return this.firstnameIsValid && this.lastnameIsValid
-        }
+            return this.firstnameIsValid && this.lastnameIsValid;
+        },
     },
     methods: {
         async upd() {
@@ -112,42 +119,44 @@ export default {
             var uid = this.User.id;
             console.log(uid);
             if (this.formisValid) {
-            const result = await axios.put("http://localhost:3000/users/" + this.User.id, {
-                firstname: this.User.firstname,
-                lastname: this.User.lastname,
-                email: this.User.email,
-                password: this.User.password,
-                roleatschool: this.User.roleatschool,
-                state: this.User.state,
-            });
-            console.log(result);
+                const result = await axios.put(
+                    "http://localhost:3000/users/" + this.User.id, {
+                        firstname: this.User.firstname,
+                        lastname: this.User.lastname,
+                        email: this.User.email,
+                        password: this.User.password,
+                        roleatschool: this.User.roleatschool,
+                        state: this.User.state,
+                    }
+                );
+                console.log(result);
 
-            if (result.status == 200) {
-                this.$router.push({
-                    name: 'ProfilePage'
-                });
-                alert("Details updated")
-            }
+                if (result.status == 200) {
+                    this.$router.push({
+                        name: "ProfilePage",
+                    });
+                    alert("Details updated");
+                }
             }
         },
-        logout(){
+        logout() {
             localStorage.clear();
             this.$router.push({
-                path:'/'
-            })
-        }
+                path: "/",
+            });
+        },
     },
     mounted() {
-        let user = localStorage.getItem('user');
+        let user = localStorage.getItem("user");
         if (!user) {
             this.$router.push({
-                path: '/'
-            })
+                path: "/",
+            });
         }
-        var obj = JSON.parse(user)
+        var obj = JSON.parse(user);
         this.User = obj;
-    }
-}
+    },
+};
 </script>
 
 <style>
@@ -169,7 +178,7 @@ export default {
 }
 
 @media screen and (max-width: 1000px) {
-    #conn {
+    .upd, .conn {
         width: 40%;
     }
 }
@@ -179,8 +188,8 @@ export default {
         width: 78%;
     }
 
-    #upd,
-    #conn {
+    .upd,
+    .conn {
         width: 100%;
     }
 
