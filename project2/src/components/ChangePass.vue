@@ -8,7 +8,7 @@
                 <form>
                     <div class="form-group">
                         <label for="password">Password</label>
-                        <input type="password" id="password" class="form-control" v-model="this.Passwd.password">
+                        <input type="password" id="password" class="form-control" v-model="this.Passwd.pass">
                         <p v-if="!passisValid" id="str-red">Must contain atleast 8 characters</p>
                     </div>
                     <br>
@@ -35,17 +35,22 @@ export default {
         return {
             Passwd: {
                 id:'',
-                password: '',
+                firstname: '',
+                lastname: '',
+                email: '',
+                pass: '',
                 cpassword: '',
+                roleatschool: '',
+                state: '',
             }
         }
     },
     computed: {
         passisValid() {
-            return this.Passwd.password.length > 8
+            return this.Passwd.pass.length > 8
         },
         cpassisValid() {
-            return this.Passwd.cpassword.length > 8 && this.Passwd.cpassword == this.Passwd.password
+            return this.Passwd.cpassword.length > 8 && this.Passwd.cpassword == this.Passwd.pass
         },
         formisValid() {
             return this.passisValid && this.cpassisValid
@@ -54,11 +59,17 @@ export default {
     methods: {
         async changePass() {
             if (this.formisValid) {
-                console.log(this.Passwd.password, this.Passwd.cpassword, this.Passwd.id );
+                console.log(this.Passwd.pass, this.Passwd.cpassword, this.Passwd.id );
                 const pass = await axios.put("http://localhost:3000/users/" + this.Passwd.id, {
-                    password: this.Passwd.password,
+                    firstname: this.Passwd.firstname,
+                    lastname: this.Passwd.lastname,
+                    email: this.Passwd.email,
+                    password: this.Passwd.pass,
+                    roleatschool: this.Passwd.roleatschool,
+                    state: this.Passwd.state
                 });
                 console.log(pass);
+                alert("Password Changed successfully")
             }
         }
     },
