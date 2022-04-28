@@ -5,6 +5,18 @@
             <img class="image" src="../assets/img.webp" alt="image" />
         </div>
         <div class="col-md-7">
+            <div class="position-fixed top-0 end-0 p-3" style="z-index: 11">
+            <div class="toast" :class="{ show: showToast }" role="alert" aria-live="assertive" aria-atomic="true">
+                    <div class="toast-header">
+                        <strong class="me-auto">Bootstrap</strong>
+                        <small>11 mins ago</small>
+                        <button type="button" class="btn-close" aria-label="Close" @click="showToast = false"></button>
+                    </div>
+                    <div class="toast-body">
+                        Invalid Details
+                    </div>
+                </div>
+            </div>
             <div class="justify-content-md-end d-md-flex p-3">
                 <span id="acc-span" class="me-md-2">Don't have an account yet?</span>
                 <button @click="$router.push('signup')" id="cre-acc" class="col-3 rounded" type="button" style="border-color: #026c7c;">Create Account</button>
@@ -54,7 +66,7 @@
 </template>
 
 <script>
-import axios from 'axios'
+import axios from 'axios';
 
 export default {
     name: 'SignIn',
@@ -62,19 +74,20 @@ export default {
         return {
             email: '',
             password: '',
+            showToast: false,
         }
     },
     methods: {
         async logIn() {
             let result = await axios.get(`http://localhost:3000/users?email=${this.email}&password=${this.password}`)
-            
+
             if (result.status == 200 && result.data.length > 0) {
                 localStorage.setItem('user', JSON.stringify(result.data[0]))
                 this.$router.push({
                     path: '/profile'
                 })
             } else {
-                alert("Invalid Details")
+                this.showToast = true
             }
         }
     },
