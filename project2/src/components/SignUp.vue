@@ -67,7 +67,7 @@
                         <option value="AP">AP</option>
                         <option value="DH">DH</option>
                     </select>
-                    <p v-show="!stateIsValid" id="str-red">Can't be empty</p>
+                    <p v-if="!stateIsValid" id="str-red">Can't be empty</p>
                 </div>
                 <div>
                     <br>
@@ -75,7 +75,7 @@
                         ABC</span>
                 </div>
                 <div>
-                    <input class="me-2" type="checkbox" checked /><span>I accept the <a href="#" style="color:#23c9ff; text-decoration:none;">Terms and Conditions</a></span>
+                    <input id="checked" class="me-2" type="checkbox" checked/><span>I accept the <a href="#" style="color:#23c9ff; text-decoration:none;">Terms and Conditions</a></span>
                 </div>
                 <br>
                 <div>
@@ -121,7 +121,7 @@ export default {
             password: "",
             roleatschool: "",
             state: "",
-            reg: /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,24}))$/, //eslint-disable-line
+            reg: /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,24}))$/,    //eslint-disable-line
         }
     },
     computed: {
@@ -143,8 +143,11 @@ export default {
         emailIsValid() {
             return this.reg.test(this.email)
         },
+        checkisValid(){
+            return document.getElementById("checked").checked = true;
+        },
         formisValid() {
-            return this.firstnameIsValid && this.lastnameIsValid && this.emailIsValid && this.passwordIsValid && this.roleatschoolIsValid && this.stateIsValid
+            return this.firstnameIsValid && this.lastnameIsValid && this.emailIsValid && this.passwordIsValid && this.roleatschoolIsValid && this.stateIsValid && this.checkisValid
         }
     },
     methods: {
