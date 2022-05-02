@@ -5,11 +5,10 @@
             <img class="image" src="../assets/img.webp" alt="image" />
         </div>
         <div class="col-md-7">
-            <div class="position-fixed top-0 end-0 p-3" style="z-index: 11">
-            <div class="toast" :class="{ show: showToast }" role="alert" aria-live="assertive" aria-atomic="true">
+            <div class="position-fixed top-0 end-40 p-3" style="z-index: 11">
+                <div class="toast" :class="{ show: showToast }" role="alert" aria-live="assertive" aria-atomic="true" data-delay="5000">
                     <div class="toast-header">
-                        <strong class="me-auto">Bootstrap</strong>
-                        <small>11 mins ago</small>
+                        <strong class="me-auto">Error</strong>
                         <button type="button" class="btn-close" aria-label="Close" @click="showToast = false"></button>
                     </div>
                     <div class="toast-body">
@@ -87,7 +86,9 @@ export default {
                     path: '/profile'
                 })
             } else {
-                this.showToast = true
+                this.showToast = true;
+                setTimeout(() => this.showToast = false, 2000)
+
             }
         }
     },
@@ -103,6 +104,11 @@ export default {
 </script>
 
 <style>
+.toast-header {
+    background-color: red;
+    color: white;
+}
+
 #hr1 {
     border: 2px solid;
     opacity: 1;

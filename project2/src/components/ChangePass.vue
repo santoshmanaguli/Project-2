@@ -3,6 +3,28 @@
     <div class="row">
         <div class="col-md-12">
             <div class="col-md-8 offset-md-2" id="">
+                <div class="position-fixed top-0 end-0 p-3" style="z-index: 11">
+                    <div class="toast" :class="{ show: showToast }" role="alert" aria-live="assertive" aria-atomic="true">
+                        <div class="toast-header">
+                            <strong class="me-auto">Error</strong>
+                            <button type="button" class="btn-close" aria-label="Close" @click="showToast = false"></button>
+                        </div>
+                        <div class="toast-body">
+                            Enter all details
+                        </div>
+                    </div>
+                </div>
+                <div class="position-fixed top-0 end-0 p-3" style="z-index: 11">
+                    <div class="toast" :class="{ show: showToastCP }" role="alert" aria-live="assertive" aria-atomic="true">
+                        <div class="toast-header" style="background-color: #2d9cdb;">
+                            <strong class="me-auto">Success</strong>
+                            <button type="button" class="btn-close" aria-label="Close" @click="showToast = false"></button>
+                        </div>
+                        <div class="toast-body">
+                            Password Changed successfully
+                        </div>
+                    </div>
+                </div>
                 <h3 id="h3cp">Change your Password.</h3>
                 <br>
                 <form>
@@ -33,6 +55,8 @@ export default {
     name: 'ChangePass',
     data() {
         return {
+            showToast: false,
+            showToastCP: false,
             Passwd: {
                 id: '',
                 firstname: '',
@@ -69,7 +93,11 @@ export default {
                     state: this.Passwd.state
                 });
                 console.log(pass);
-                alert("Password Changed successfully")
+                this.showToastCP = true;
+                setTimeout(() => this.showToastCP = false, 2000)
+            } else {
+                this.showToast = true;
+                setTimeout(() => this.showToast = false, 2000)
             }
         }
     },

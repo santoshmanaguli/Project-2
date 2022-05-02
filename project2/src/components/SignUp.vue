@@ -5,6 +5,17 @@
             <img class="image" src="../assets/img.webp" alt="image" />
         </div>
         <div class="col-md-7 p-5">
+            <div class="position-fixed top-0 end-40 p-3" style="z-index: 11">
+                <div class="toast" :class="{ show: showToast }" role="alert" aria-live="assertive" aria-atomic="true">
+                    <div class="toast-header">
+                        <strong class="me-auto">Error</strong>
+                        <button type="button" class="btn-close" aria-label="Close" @click="showToast = false"></button>
+                    </div>
+                    <div class="toast-body">
+                        Enter all details
+                    </div>
+                </div>
+            </div>
             <div class="justify-content-md-end d-md-flex">
                 <span id="acc-span" class="me-md-2">Already have an account?</span>
                 <button @click="$router.push('/')" id="signin-btn" class="col-2 rounded" type="button" style="border-color: #026c7c;">SignIn</button>
@@ -102,13 +113,15 @@ export default {
     name: "SignUp",
     data() {
         return {
+            showToast: false,
+            showToastUser: false,
             firstname: "",
             lastname: "",
             email: "",
             password: "",
             roleatschool: "",
             state: "",
-            reg: /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,24}))$/,                 //eslint-disable-line
+            reg: /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,24}))$/, //eslint-disable-line
         }
     },
     computed: {
@@ -147,14 +160,14 @@ export default {
                 });
                 console.log(result);
                 if (result.status == 201) {
-                    alert("user registered");
                     localStorage.setItem("user", JSON.stringify(result.data))
                     this.$router.push({
                         name: 'ProfilePage'
                     })
                 }
-            }else{
-                alert("Enter all details correctly");
+            } else {
+                this.showToast = true;
+                setTimeout(() => this.showToast = false, 2000)
             }
         }
     },

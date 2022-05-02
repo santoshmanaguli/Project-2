@@ -32,6 +32,28 @@
 <br />
 <br />
 <div>
+    <div class="position-fixed top-0 end-0 p-3" style="z-index: 11">
+        <div class="toast" :class="{ show: showToast }" role="alert" aria-live="assertive" aria-atomic="true">
+            <div class="toast-header" style="background-color: blue">
+                <strong class="me-auto">Success</strong>
+                <button type="button" class="btn-close" aria-label="Close" @click="showToast = false"></button>
+            </div>
+            <div class="toast-body">
+                Details updated
+            </div>
+        </div>
+    </div>
+    <div class="position-fixed top-0 end-0 p-3" style="z-index: 11">
+        <div class="toast" :class="{ show: showToastError }" role="alert" aria-live="assertive" aria-atomic="true">
+            <div class="toast-header">
+                <strong class="me-auto">Error</strong>
+                <button type="button" class="btn-close" aria-label="Close" @click="showToast = false"></button>
+            </div>
+            <div class="toast-body">
+                Enter details correctly
+            </div>
+        </div>
+    </div>
     <form class="row g-2 align-items-center d-grid p-1 col-7 mx-auto">
         <div>
             <h2 class="text-center" id="personal">My Personal Information.</h2>
@@ -91,6 +113,8 @@ export default {
     name: "ProfilePage",
     data() {
         return {
+            showToast: false,
+            showToastError: false,
             User: {
                 id: "",
                 firstname: "",
@@ -135,8 +159,12 @@ export default {
                     this.$router.push({
                         name: "ProfilePage",
                     });
-                    alert("Details updated");
+                    this.showToast = true;
+                    setTimeout(() => this.showToast = false, 2000);
                 }
+            }else{
+                this.showToastError = true,
+                setTimeout(() => this.showToastError = false, 2000);
             }
         },
         logout() {
@@ -178,7 +206,9 @@ export default {
 }
 
 @media screen and (max-width: 1000px) {
-    .upd, .conn {
+
+    .upd,
+    .conn {
         width: 40%;
     }
 }
